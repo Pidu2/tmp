@@ -8,7 +8,6 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu:latest
     
     strategy: 
       # Find all directories with a Containerfile in containers/ and create a matrix
@@ -24,7 +23,6 @@ jobs:
         run: echo Found following changed files '{{ matrix }}'
 
   get-modified-files:
-    runs-on: ubuntu:latest
     outputs:
       matrix: ${{ steps.changed-files.outputs.all_changed_files }}
 
@@ -38,6 +36,7 @@ jobs:
         with:
           files: containers/**/Containerfile
           matrix: true
+          dir_names: true
 
       - name: List changed files
         run: echo Found following changed files '{{ steps.changed-files.outputs.all_changed_files }}'
